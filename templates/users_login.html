@@ -1,0 +1,18 @@
+{% load i18n %}
+
+<h1>{% trans "Log in" %}</h1>
+
+<div class="ui grid">
+    {% if error %}
+    <p class="text-error"><strong>{% trans "Unknown user or wrong password." %}</strong></p>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <p>{% trans "You are successfully logged in!" %}</p>
+    {% else %}
+    <form method="post" action="." class="ui form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="{% trans "Submit" %}" />
+    </form>
+    {% endif %}
+</div>
