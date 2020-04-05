@@ -1,0 +1,18 @@
+<p>
+<strong>
+Idea: 
+</strong>
+{{ next_idea }}
+</p>
+
+<p>
+    <ul>
+        {% for reaction in reactions %}
+        <li>
+            <a href="{% url "protocole1.participate_experiment" experiment.id %}?reaction={{reaction.value}}">
+            {{reaction.name}}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</p>

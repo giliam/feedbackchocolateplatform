@@ -10,74 +10,182 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-    ]
+    dependencies = [migrations.swappable_dependency(settings.AUTH_USER_MODEL)]
 
     operations = [
         migrations.CreateModel(
-            name='Experiment',
+            name="Experiment",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('password', models.CharField(max_length=150)),
-                ('running', models.BooleanField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("password", models.CharField(blank=True, max_length=150, null=True)),
+                ("running", models.BooleanField()),
             ],
         ),
         migrations.CreateModel(
-            name='Idea',
+            name="Idea",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('value', models.CharField(max_length=50)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("value", models.CharField(max_length=50)),
             ],
         ),
         migrations.CreateModel(
-            name='Result',
+            name="Result",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('expansion_rate', models.IntegerField()),
-                ('experiment', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='protocole1.Experiment')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("expansion_rate", models.IntegerField()),
+                (
+                    "experiment",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="protocole1.Experiment",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='ResultOnIdea',
+            name="ResultOnIdea",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('order', models.PositiveIntegerField()),
-                ('reaction', models.CharField(choices=[(protocole1.models.Reactions['CONTINUE'], 0), (protocole1.models.Reactions['EXPAND'], 1), (protocole1.models.Reactions['STOP'], 2)], max_length=5)),
-                ('idea', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='protocole1.Idea')),
-                ('result', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='protocole1.Result')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("order", models.PositiveIntegerField()),
+                (
+                    "reaction",
+                    models.CharField(
+                        choices=[
+                            (protocole1.models.Reactions["CONTINUE"], 0),
+                            (protocole1.models.Reactions["EXPAND"], 1),
+                            (protocole1.models.Reactions["STOP"], 2),
+                        ],
+                        max_length=5,
+                    ),
+                ),
+                (
+                    "idea",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="protocole1.Idea",
+                    ),
+                ),
+                (
+                    "result",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="protocole1.Result",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='result',
-            name='reactions_ideas',
-            field=models.ManyToManyField(through='protocole1.ResultOnIdea', to='protocole1.Idea'),
+            model_name="result",
+            name="reactions_ideas",
+            field=models.ManyToManyField(
+                through="protocole1.ResultOnIdea", to="protocole1.Idea"
+            ),
         ),
         migrations.AddField(
-            model_name='result',
-            name='user',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='results', to=settings.AUTH_USER_MODEL),
+            model_name="result",
+            name="user",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="results",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.CreateModel(
-            name='IdeasGroup',
+            name="IdeasGroup",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
-                ('ideas', models.ManyToManyField(related_name='groups', to='protocole1.Idea')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
+                (
+                    "ideas",
+                    models.ManyToManyField(related_name="groups", to="protocole1.Idea"),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='ExperimentGroups',
+            name="ExperimentGroups",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('type_groupe_dans_experience', models.CharField(choices=[(protocole1.models.GroupeType['FIXATION'], 0), (protocole1.models.GroupeType['EXPANSION'], 1)], max_length=5)),
-                ('experience', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='protocole1.Experiment')),
-                ('groupe', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='protocole1.IdeasGroup')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "type_groupe_dans_experience",
+                    models.CharField(
+                        choices=[
+                            (protocole1.models.GroupType["FIXATION"], 0),
+                            (protocole1.models.GroupType["EXPANSION"], 1),
+                        ],
+                        max_length=5,
+                    ),
+                ),
+                (
+                    "experience",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="protocole1.Experiment",
+                    ),
+                ),
+                (
+                    "groupe",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="protocole1.IdeasGroup",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='experiment',
-            name='groups',
-            field=models.ManyToManyField(through='protocole1.ExperimentGroups', to='protocole1.IdeasGroup'),
+            model_name="experiment",
+            name="groups",
+            field=models.ManyToManyField(
+                through="protocole1.ExperimentGroups", to="protocole1.IdeasGroup"
+            ),
         ),
     ]

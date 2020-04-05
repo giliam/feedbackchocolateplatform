@@ -1,0 +1,17 @@
+{% load common_extras %}
+
+<p>
+{{experiment}}
+</p>
+
+{% for result in results %}
+<p>{{ result }}</p>
+    <ul>
+    {% for reac in reactions_ideas_result|get_item:result.id %}
+        <li><strong>Idea:</strong> <em>{{reac.idea}}</em>
+        <br /><em>Reaction:</em>{{reac.reaction|conv_reaction}}
+        <br /><em>Expansion:</em>{% if reac.did_expand %}Expanded{% else %}Didn't expand{% endif %}
+        <br /><em>Expansion rate:</em> {{reac.expansion_rate|floatformat:3}}</li>
+    {% endfor %}
+    </ul>
+{% endfor %}

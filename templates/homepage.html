@@ -1,2 +1,15 @@
+{% load common_extras %}
 <p><a href="/admin">Admin</a></p>
-<p>Hi</p>
+<h1>Experiments available</h1>
+<ul>
+    {% for experiment in experiments_available.all %}
+    <li>
+        {{ experiment }}
+        {% if experiment.running and not results|get_item:experiment.id %}
+        <a href="{% url "protocole1.participate_experiment" experiment.id %}">Participate</a>
+        {% elif experiment.running %}
+        <em>Already participated</em>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
