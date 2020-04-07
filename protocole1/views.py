@@ -73,7 +73,7 @@ def get_next_idea(ideas):
     return random.choice(ideas)
 
 
-def get_next_step_feedback(experiment_ideas, expansion_rate=0.2):
+def get_next_step(experiment_ideas, expansion_rate=0.2):
     will_expand = random.random()
     if will_expand <= expansion_rate:
         expansion = True
@@ -103,9 +103,7 @@ def remove_already_used_ideas(groups, reactions_ideas):
 
 
 def create_next_idea(experiment, groups, result):
-    next_idea, did_expand = get_next_step_feedback(
-        groups, experiment.starting_expansion_rate
-    )
+    next_idea, did_expand = get_next_step(groups, experiment.starting_expansion_rate)
     new_order = len(result.reactions_ideas.all())
     next_result = models.ResultOnIdea(
         idea=next_idea,

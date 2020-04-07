@@ -10,6 +10,7 @@
         {% elif experiment.running %}
         <em>Already participated</em>
         {% endif %}
+        / <a href="{% url "protocole1.results_experiment" experiment.id %}">Results</a>
     </li>
     {% endfor %}
 </ul>
