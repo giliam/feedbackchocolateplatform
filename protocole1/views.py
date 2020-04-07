@@ -202,12 +202,12 @@ def log_in(request):
             )  # Nous vérifions si les données sont correctes
             if user:  # Si l'objet renvoyé n'est pas None
                 login(request, user)  # nous connectons l'profile_user
-                return redirect("homepage")
+                return redirect("protocole1.homepage")
             else:  # sinon une erreur sera affichée
                 error = True
     else:
         if request.user.is_authenticated:
-            return redirect("homepage")
+            return redirect("protocole1.homepage")
         form = forms.ConnectionForm()
     return render(
         request,
