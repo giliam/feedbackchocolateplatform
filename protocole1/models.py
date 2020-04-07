@@ -73,6 +73,12 @@ class ExperimentGroups(models.Model):
         choices=[(group_type.value, group_type) for group_type in GroupType]
     )
 
+    def __str__(self):
+        return "ExperimentGroups for group %s in experiment %s" % (
+            self.group.name,
+            self.experiment.id,
+        )
+
     class Meta:
         verbose_name = "ExperimentGroup"
         verbose_name_plural = "ExperimentGroups"
@@ -107,7 +113,7 @@ class Result(models.Model):
             if reaction == Reactions.CONTINUE:
                 if self.expansion_rate > 0:
                     self.expansion_rate -= 0.05
-        return self.expansion_rate
+        return min(max(self.expansion_rate, 0), 1)
 
     def __str__(self):
         return "Result of %s on %s" % (self.user, self.experiment)
