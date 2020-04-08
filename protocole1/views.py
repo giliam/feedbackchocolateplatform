@@ -256,6 +256,7 @@ def participate_experiment(request, experiment_id):
                 ):
                     # If no idea remain,
                     result.finished = True
+                    result.save()
                     return redirect(reverse("protocole1.homepage"))
 
                 # Picks the next idea
