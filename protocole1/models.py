@@ -149,6 +149,7 @@ class ExperimentGroups(models.Model):
         verbose_name = "ExperimentGroup"
         verbose_name_plural = "ExperimentGroups"
         ordering = ["experiment"]
+        unique_together = ("experiment", "group")
 
 
 class Result(models.Model):
