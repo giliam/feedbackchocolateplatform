@@ -85,7 +85,7 @@ class Migration(migrations.Migration):
                         choices=[
                             (protocole1.models.Reactions["CONTINUE"], 0),
                             (protocole1.models.Reactions["EXPAND"], 1),
-                            (protocole1.models.Reactions["STOP"], 2),
+                            (protocole1.models.Reactions["NEUTRAL"], 2),
                         ],
                         max_length=5,
                     ),

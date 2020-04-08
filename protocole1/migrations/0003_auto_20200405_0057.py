@@ -6,88 +6,118 @@ import protocole1.models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('protocole1', '0002_ideasgroup_description'),
-    ]
+    dependencies = [("protocole1", "0002_ideasgroup_description")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='experiment',
-            options={'verbose_name': 'Experiment', 'verbose_name_plural': 'Experiments'},
+            name="experiment",
+            options={
+                "verbose_name": "Experiment",
+                "verbose_name_plural": "Experiments",
+            },
         ),
         migrations.AlterModelOptions(
-            name='experimentgroups',
-            options={'ordering': ['experiment'], 'verbose_name': 'ExperimentGroup', 'verbose_name_plural': 'ExperimentGroups'},
+            name="experimentgroups",
+            options={
+                "ordering": ["experiment"],
+                "verbose_name": "ExperimentGroup",
+                "verbose_name_plural": "ExperimentGroups",
+            },
         ),
         migrations.AlterModelOptions(
-            name='idea',
-            options={'verbose_name': 'Idea', 'verbose_name_plural': 'Ideas'},
+            name="idea",
+            options={"verbose_name": "Idea", "verbose_name_plural": "Ideas"},
         ),
         migrations.AlterModelOptions(
-            name='ideasgroup',
-            options={'ordering': ['name'], 'verbose_name': 'IdeasGroup', 'verbose_name_plural': 'IdeasGroups'},
+            name="ideasgroup",
+            options={
+                "ordering": ["name"],
+                "verbose_name": "IdeasGroup",
+                "verbose_name_plural": "IdeasGroups",
+            },
         ),
         migrations.AlterModelOptions(
-            name='result',
-            options={'ordering': ['experiment', 'user'], 'verbose_name': 'Result', 'verbose_name_plural': 'Results'},
+            name="result",
+            options={
+                "ordering": ["experiment", "user"],
+                "verbose_name": "Result",
+                "verbose_name_plural": "Results",
+            },
         ),
         migrations.AlterModelOptions(
-            name='resultonidea',
-            options={'ordering': ['result', 'order', 'idea'], 'verbose_name': 'ResultOnIdea', 'verbose_name_plural': 'ResultOnIdeas'},
+            name="resultonidea",
+            options={
+                "ordering": ["result", "order", "idea"],
+                "verbose_name": "ResultOnIdea",
+                "verbose_name_plural": "ResultOnIdeas",
+            },
         ),
         migrations.RenameField(
-            model_name='experiment',
-            old_name='groups',
-            new_name='experiment_groups',
+            model_name="experiment", old_name="groups", new_name="experiment_groups"
         ),
         migrations.RenameField(
-            model_name='experimentgroups',
-            old_name='experience',
-            new_name='experiment',
+            model_name="experimentgroups", old_name="experience", new_name="experiment"
         ),
         migrations.RenameField(
-            model_name='experimentgroups',
-            old_name='groupe',
-            new_name='group',
+            model_name="experimentgroups", old_name="groupe", new_name="group"
         ),
         migrations.RemoveField(
-            model_name='experimentgroups',
-            name='type_groupe_dans_experience',
+            model_name="experimentgroups", name="type_groupe_dans_experience"
         ),
         migrations.AddField(
-            model_name='experiment',
-            name='description',
-            field=models.TextField(default=''),
+            model_name="experiment",
+            name="description",
+            field=models.TextField(default=""),
         ),
         migrations.AddField(
-            model_name='experiment',
-            name='starting_expansion_rate',
-            field=models.FloatField(default=0.2, validators=[protocole1.models.validate_expansion_rate]),
+            model_name="experiment",
+            name="starting_expansion_rate",
+            field=models.FloatField(
+                default=0.2, validators=[protocole1.models.validate_expansion_rate]
+            ),
         ),
         migrations.AddField(
-            model_name='experimentgroups',
-            name='group_type_here',
-            field=models.PositiveIntegerField(choices=[(0, protocole1.models.GroupType['FIXATION']), (1, protocole1.models.GroupType['EXPANSION'])], default=0),
+            model_name="experimentgroups",
+            name="group_type_here",
+            field=models.PositiveIntegerField(
+                choices=[
+                    (0, protocole1.models.GroupType["FIXATION"]),
+                    (1, protocole1.models.GroupType["EXPANSION"]),
+                ],
+                default=0,
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='resultonidea',
-            name='did_expand',
+            model_name="resultonidea",
+            name="did_expand",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='resultonidea',
-            name='expansion_rate',
-            field=models.FloatField(default=0.2, validators=[protocole1.models.validate_expansion_rate]),
+            model_name="resultonidea",
+            name="expansion_rate",
+            field=models.FloatField(
+                default=0.2, validators=[protocole1.models.validate_expansion_rate]
+            ),
         ),
         migrations.AlterField(
-            model_name='result',
-            name='expansion_rate',
-            field=models.FloatField(default=0.2, validators=[protocole1.models.validate_expansion_rate]),
+            model_name="result",
+            name="expansion_rate",
+            field=models.FloatField(
+                default=0.2, validators=[protocole1.models.validate_expansion_rate]
+            ),
         ),
         migrations.AlterField(
-            model_name='resultonidea',
-            name='reaction',
-            field=models.PositiveIntegerField(choices=[(0, protocole1.models.Reactions['NEUTRAL']), (1, protocole1.models.Reactions['CONTINUE']), (2, protocole1.models.Reactions['EXPAND']), (3, protocole1.models.Reactions['STOP'])], default=-1),
+            model_name="resultonidea",
+            name="reaction",
+            field=models.PositiveIntegerField(
+                choices=[
+                    (0, protocole1.models.Reactions["UNDEFINED"]),
+                    (1, protocole1.models.Reactions["CONTINUE"]),
+                    (2, protocole1.models.Reactions["EXPAND"]),
+                    (3, protocole1.models.Reactions["NEUTRAL"]),
+                ],
+                default=-1,
+            ),
         ),
     ]
